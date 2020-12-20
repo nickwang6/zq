@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>足球</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/CSSRulePlugin.min.js"></script>
+</head>
+<style>
+body {
+    height: 100vh;
+    background: #E8E8E8;
+    font-family: 'Poppins', Arial;
+    margin: 0;
+    display: grid;
+    place-content: center;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    width: 62%;
+    background: rgb(224, 224, 224);
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: -7;
+}
+
+.card {
+    width: 30%;
+    margin: 0 auto;
+    min-width: 500px;
+    padding: 3em;
+    cursor: pointer;
+    position: relative;
+}
+
+.card::before, .card::after {
+    content: "";
+    position: absolute;
+    height: 300px;
+    width: 34%;
+    background: white;
+    top: 0;
+    right: 0;
+    z-index: -2;
+}
+h1 {
+    margin: 0;
+}
+
+.card::after {
+    width: 0;
+    background:  #004CFF;
+    left: 0;
+    z-index: -1;
+}
+
+p {
+    clip-path: circle(0% at 100% 0);
+    color: white;
+    font-size: .9em;
+    line-height: 1.6em;
+    margin: 0;
+    padding: 1.5em 0 0 3em;
+    position: relative;
+    transform: translateX(20px);
+}
+
+p::before {
+    content: "";
+    position: absolute;
+    height: 80%;
+    top: 2em;
+    left: 0;
+    width: 5px;
+    background: darkblue;
+}
+</style>
+<body>
+<div class="card" id="card">
+    <h1>一年零3个多月</h1>
+    <p>有人告诉我，喜欢足球是一种本能。要是街上有个足球朝你滚来，您会下意识给他一脚，就像你恋爱的时候一样，您不知道如何躲开它.</p>
+    <p>过去的一年三个月中，足球训练就像过山车一样，一开始满怀激情，后来随着事情的展开，中途长时间都没去过足球场，接着又回到足球场上.</p>
+    <p>对足球的那份热爱我还是会继续保持，毕竟他能在一定程度上使我放空大脑，享受足球的乐趣.</p>
+</div>
+<script>
+    var card = document.getElementById('card');
+
+var rule = CSSRulePlugin.getRule(".card::before");
+var rule2 = CSSRulePlugin.getRule(".card::after");
+
+var tl = gsap.timeline({
+    defaults: {
+        ease: "power2.inOut"
+    }
+});
+
+tl.to(rule, {
+    width: '100%'
+})
+tl.to(rule2, {
+    width: '100%'
+}, "-=.3")
+tl.to('h1', {
+    color: 'white'
+}, "-=.7")
+tl.to('p', {
+    'clipPath': 'circle(140% at 0% 100%)',
+    'transform': 'translateX(0)',
+    ease: Back.easeOut.config(4),
+}, "-=.3")
+tl.pause();
+
+card.addEventListener('mouseenter', () => {
+    tl.play();
+})
+card.addEventListener('mouseleave', () => {
+    tl.reverse();
+})
+</script>
+</body>
+</html>
